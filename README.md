@@ -86,37 +86,43 @@ git clone git@github.com:shalinis602/RNASeq-GeneExpression-ML.git
 cd RNASeq-GeneExpression-ML
 ```
 
-2. **Install dependencies:** 
+2. **Create and activate a virtual environment:**
+```
+python3 -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+```
+
+3. **Install the dependencies:** 
 ```
 pip install -r requirements.txt
 ```
 
-3. **Fast load the dataset and verify its contents:**
+4. **Fast load the dataset and verify its contents:**
 
 ```
 python src/load_data.py
 ```
 
-4. **Split the data into training, testing and validation sets:**
+5. **Split the data into training, testing and validation sets:**
 
 ```
 python src/split.py
 ```
 
-5. **Preprocess the dataset:**
+6. **Preprocess the dataset:**
 
 ```
 python src/smote.py
 python src/pca.py
 ```
 
-6. **Train the models:**
+7. **Train the models:**
 
 ```
 python src/models/random_forest.py
 ```
 
-7. **Evaluate the models:**
+8. **Evaluate the models:**
 
 ```
 python src/model_evaluation.py
