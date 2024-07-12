@@ -1,0 +1,17 @@
+Explained variance ratios for each component:
+Principal Component 1: 0.1394
+Principal Component 2: 0.1006
+Principal Component 3: 0.0764
+Principal Component 4: 0.0596
+Principal Component 5: 0.0391
+Principal Component 6: 0.0321
+Principal Component 7: 0.0222
+
+Cumulative explained variance ratios:
+Principal Component 1: 0.1394
+Principal Component 2: 0.2400
+Principal Component 3: 0.3164
+Principal Component 4: 0.3760
+Principal Component 5: 0.4151
+Principal Component 6: 0.4472
+Principal Component 7: 0.4694

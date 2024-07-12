@@ -61,18 +61,22 @@ def main():
     plt.legend(loc='best')
     plt.grid(True)
 
-    plot_filename = os.path.join(output_dir, 'explained_variance_plot.png')
+    output_dir2 = 'results/pre_processing'
+    os.makedirs(output_dir2, exist_ok=True)
+    plot_filename = os.path.join(output_dir2, 'explained_variance_plot.png')
     plt.savefig(plot_filename)
     plt.show()
     
-    # Print explained variance values for the selected components
-    print("Explained variance ratios for each component:")
-    for i, var in enumerate(explained_variance, start=1):
-        print(f"Principal Component {i}: {var:.4f}")
+    # Save explained variance values for the selected components
+    pca_file_path = os.path.join(output_dir2, 'pca.txt')
+    with open(pca_file_path, "w") as f:
+        f.write("Explained variance ratios for each component:\n")
+        for i, var in enumerate(explained_variance, start=1):
+            f.write(f"Principal Component {i}: {var:.4f}\n")
 
-    print("\nCumulative explained variance ratios:")
-    for i, cum_var in enumerate(cumulative_explained_variance, start=1):
-        print(f"Principal Component {i}: {cum_var:.4f}")
+        f.write("\nCumulative explained variance ratios:\n")
+        for i, cum_var in enumerate(cumulative_explained_variance, start=1):
+            f.write(f"Principal Component {i}: {cum_var:.4f}\n")
 
 if __name__ == "__main__":
     main()
