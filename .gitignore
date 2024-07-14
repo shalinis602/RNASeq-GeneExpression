@@ -1,5 +1,5 @@
 *.pkl
 *.csv
 *.out
-!requirements.txt
+requirements.txt
 venv/
