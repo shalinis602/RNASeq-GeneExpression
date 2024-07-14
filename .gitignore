@@ -1,7 +1,5 @@
 *.pkl
 *.csv
 *.out
-*.txt
-*.png
 !requirements.txt
 venv/

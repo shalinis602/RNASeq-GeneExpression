@@ -1,0 +1,41 @@
+Validation Accuracy: 0.93
+Validation Classification Report:
+              precision    recall  f1-score   support
+
+        BRCA       0.90      0.93      0.91        28
+        COAD       1.00      1.00      1.00         9
+        KIRC       1.00      0.80      0.89        10
+        LUAD       0.80      0.92      0.86        13
+        PRAD       1.00      0.95      0.98        21
+
+    accuracy                           0.93        81
+   macro avg       0.94      0.92      0.93        81
+weighted avg       0.93      0.93      0.93        81
+
+Validation Confusion Matrix:
+[[26  0  0  2  0]
+ [ 0  9  0  0  0]
+ [ 1  0  8  1  0]
+ [ 1  0  0 12  0]
+ [ 1  0  0  0 20]]
+
+Test Accuracy: 0.93
+Test Classification Report:
+              precision    recall  f1-score   support
+
+        BRCA       0.89      0.89      0.89        27
+        COAD       1.00      1.00      1.00         8
+        KIRC       1.00      1.00      1.00        15
+        LUAD       0.84      0.84      0.84        19
+        PRAD       1.00      1.00      1.00        11
+
+    accuracy                           0.93        80
+   macro avg       0.95      0.95      0.95        80
+weighted avg       0.93      0.93      0.93        80
+
+Test Confusion Matrix:
+[[24  0  0  3  0]
+ [ 0  8  0  0  0]
+ [ 0  0 15  0  0]
+ [ 3  0  0 16  0]
+ [ 0  0  0  0 11]]
