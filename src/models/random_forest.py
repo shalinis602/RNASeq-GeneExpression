@@ -1,8 +1,17 @@
 import os
+import sys, datetime
 import pickle
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.model_selection import GridSearchCV
+
+# Generate a timestamp for this run
+timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+log_file = f"logs/random_forest_{timestamp}.out"
+
+# Redirect stdout and stderr to the log file
+sys.stdout = open(f'{log_file}', 'a')
+sys.stderr = open(f'{log_file}', 'a')
 
 def pickle_deserialize_object(filename):
     with open(filename, 'rb') as f:

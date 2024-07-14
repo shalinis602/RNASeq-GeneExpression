@@ -1,13 +1,13 @@
 import os
 import sys, datetime
 import pickle
-from sklearn.neighbors import KNeighborsClassifier
+import lightgbm as lgb
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.model_selection import GridSearchCV
 
 # Generate a timestamp for this run
 timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-log_file = f"logs/knn_{timestamp}.out"
+log_file = f"logs/light_gbm_{timestamp}.out"
 
 # Redirect stdout and stderr to the log file
 sys.stdout = open(f'{log_file}', 'a')
@@ -37,33 +37,36 @@ def main():
 
     # Define parameter grid for GridSearchCV
     param_grid = {
-        'n_neighbors': [3, 5, 7, 9],
-        'weights': ['uniform', 'distance'],
-        'p': [1, 2]  # 1 for Manhattan distance, 2 for Euclidean distance
-    }
+        'n_estimators': [50, 100],
+        'learning_rate': [0.01],
+        'num_leaves': [31],
+        'max_depth': [10, 20],
+        'min_child_samples': [100, 200],
+        'force_col_wise': [True]
+}
 
-    # Initialize and fit KNeighborsClassifier with GridSearchCV
-    knn = KNeighborsClassifier()
-    grid_search = GridSearchCV(knn, param_grid, cv=3, n_jobs=-1, verbose=1)
+    # Initialize and fit LGBMClassifier with GridSearchCV
+    lgbm = lgb.LGBMClassifier(random_state=1)
+    grid_search = GridSearchCV(lgbm, param_grid, cv=3, n_jobs=-1, verbose=1)
     grid_search.fit(X_train_pca, y_train_resampled)
 
     # Get the best estimator
-    best_knn = grid_search.best_estimator_
+    best_lgbm = grid_search.best_estimator_
 
     # Evaluate on validation set
-    y_val_pred = best_knn.predict(X_val_pca)
+    y_val_pred = best_lgbm.predict(X_val_pca)
     val_accuracy = accuracy_score(y_val, y_val_pred)
     val_classification_report = classification_report(y_val, y_val_pred)
     val_confusion_matrix = confusion_matrix(y_val, y_val_pred)
 
     # Evaluate on test set
-    y_test_pred = best_knn.predict(X_test_pca)
+    y_test_pred = best_lgbm.predict(X_test_pca)
     test_accuracy = accuracy_score(y_test, y_test_pred)
     test_classification_report = classification_report(y_test, y_test_pred)
     test_confusion_matrix = confusion_matrix(y_test, y_test_pred)
 
     # Write results to a file
-    output_filename = 'results/knn.txt'
+    output_filename = 'results/lightgbm.txt'
     with open(output_filename, 'w') as f:
         f.write(f"Validation Accuracy: {val_accuracy:.2f}\n")
         f.write("Validation Classification Report:\n")

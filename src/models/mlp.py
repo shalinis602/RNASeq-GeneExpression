@@ -1,8 +1,17 @@
 import os
+import sys, datetime
 import pickle
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.model_selection import GridSearchCV
+
+# Generate a timestamp for this run
+timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+log_file = f"logs/mlp_{timestamp}.out"
+
+# Redirect stdout and stderr to the log file
+sys.stdout = open(f'{log_file}', 'a')
+sys.stderr = open(f'{log_file}', 'a')
 
 def pickle_deserialize_object(filename):
     with open(filename, 'rb') as f:
@@ -63,6 +72,12 @@ def main():
     val_classification_report_tuned = classification_report(y_val, y_val_pred_tuned)
     val_confusion_matrix_tuned = confusion_matrix(y_val, y_val_pred_tuned)
 
+    # Evaluate on test data
+    y_test_pred = mlp.predict(X_test_pca)
+    test_accuracy = accuracy_score(y_test, y_test_pred)
+    test_classification_report = classification_report(y_test, y_test_pred)
+    test_confusion_matrix = confusion_matrix(y_test, y_test_pred)
+
     # Write results to a file
     output_filename = 'results/mlp.txt'
     try:
@@ -80,6 +95,13 @@ def main():
             f.write(val_classification_report_tuned + '\n')
             f.write("Validation Confusion Matrix after tuning:\n")
             f.write(str(val_confusion_matrix_tuned) + '\n\n')
+
+            f.write(f"Test Accuracy: {test_accuracy:.2f}\n")
+            f.write("Test Classification Report:\n")
+            f.write(test_classification_report + '\n')
+            f.write("Test Confusion Matrix:\n")
+            f.write(str(test_confusion_matrix) + '\n\n')
+            
     except Exception as e:
         print(f"Error writing to file: {e}")
 
