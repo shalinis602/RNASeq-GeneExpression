@@ -24,10 +24,10 @@ def pickle_serialize_object(filename, obj):
 def main():
     # Deserialize the input
     input_dir = 'data/processed'
-    X_train_pca = pickle_deserialize_object(os.path.join(input_dir, 'X_train_pca.pkl'))
     y_train_resampled = pickle_deserialize_object(os.path.join(input_dir, 'y_train_resampled.pkl'))    
 
     input_dir2 = 'data/processed/transformed'
+    X_train_pca = pickle_deserialize_object(os.path.join(input_dir2, 'X_train_pca.pkl'))
     X_val_pca = pickle_deserialize_object(os.path.join(input_dir2, 'X_val_pca.pkl'))
     X_test_pca = pickle_deserialize_object(os.path.join(input_dir2, 'X_test_pca.pkl'))
 
@@ -37,12 +37,16 @@ def main():
 
     # Define parameter grid for GridSearchCV
     param_grid = {
-        'n_estimators': [50, 100],
-        'learning_rate': [0.01],
         'num_leaves': [31],
-        'max_depth': [10, 20],
-        'min_child_samples': [100, 200],
-        'force_col_wise': [True]
+        'min_child_samples': [10],
+        'min_split_gain': [0.01],
+        'learning_rate': [0.1,],
+        'max_depth': [-1, 10, 20],
+        'reg_alpha': [0, 0.1, 0.5],
+        'reg_lambda': [0, 0.1, 0.5],
+        'subsample': [0.8],
+        'colsample_bytree': [0.8],
+        'n_estimators': [100]
 }
 
     # Initialize and fit LGBMClassifier with GridSearchCV
@@ -60,25 +64,26 @@ def main():
     val_confusion_matrix = confusion_matrix(y_val, y_val_pred)
 
     # Evaluate on test set
+    '''
     y_test_pred = best_lgbm.predict(X_test_pca)
     test_accuracy = accuracy_score(y_test, y_test_pred)
     test_classification_report = classification_report(y_test, y_test_pred)
     test_confusion_matrix = confusion_matrix(y_test, y_test_pred)
-
+    '''
     # Write results to a file
-    output_filename = 'results/lightgbm.txt'
+    output_filename = 'results/light_gbm.out'
     with open(output_filename, 'w') as f:
         f.write(f"Validation Accuracy: {val_accuracy:.2f}\n")
         f.write("Validation Classification Report:\n")
         f.write(val_classification_report + '\n')
         f.write("Validation Confusion Matrix:\n")
         f.write(str(val_confusion_matrix) + '\n\n')
-        
+    '''    
         f.write(f"Test Accuracy: {test_accuracy:.2f}\n")
         f.write("Test Classification Report:\n")
         f.write(test_classification_report + '\n')
         f.write("Test Confusion Matrix:\n")
         f.write(str(test_confusion_matrix) + '\n')
-
+    '''
 if __name__ == "__main__":
     main()

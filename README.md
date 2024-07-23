@@ -1,17 +1,18 @@
 ## Overview
 
-This project is my implementation of [this research paper](https://ernest-bonat.medium.com/rna-seq-gene-expression-classification-using-machine-learning-algorithms-de862e60bfd0#4592) from scratch. The objective of this project is to identify gene expression patterns associated with different conditions or diseases, leveraging advanced data processing and model training techniques. RNA sequencing (RNA-Seq) is a teachnique used to quantify and analyze gene expression levels across different conditions or samples. The classification of RNA-Seq data can be used to identify which genes are differently expressed between healthy and diseased samples, or between different diseased states, thus aiding in the diagnosis, treatment, and understanding of various diseases and conditions.
+The objective of this project is to identify gene expression patterns associated with different conditions or diseases, leveraging advanced data processing and model training techniques. RNA sequencing (RNA-Seq) is a teachnique used to quantify and analyze gene expression levels across different conditions or samples. The classification of RNA-Seq data can be used to identify which genes are differently expressed between healthy and diseased samples, or between different diseased states, thus aiding in the diagnosis, treatment, and understanding of various diseases and conditions.
 
 ## Table of Contents
 
 - [Overview](#overview)
+- [Table of Contents](#table-of-contents)
 - [Dataset](#dataset)
 - [Project Structure](#project-structure)
-- [Running the project](#running-the-project)
+- [Running the Project](#running-the-project)
 - [Models Used](#models-used)
 - [Results](#results)
 - [Contributing](#contributing)
-- [Acknowledgements](#acknowledgements)
+- [**References**](#references)
 
 ## Dataset
 
@@ -163,5 +164,5 @@ If you find any issues or have suggestions for improvements or expanding the pro
 4. Push to the branch (`git push origin feature-branch`).
 5. Create a new Pull Request.
 
-## **Acknowledgements**
-
+## **References**
+1. [RNA-Seq Gene Expression Classification Using Machine Learning Algorithms](https://ernest-bonat.medium.com/rna-seq-gene-expression-classification-using-machine-learning-algorithms-de862e60bfd0) 
